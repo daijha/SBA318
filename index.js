@@ -1,24 +1,34 @@
+//imports:
 import express from 'express';
-import userData from './data/userData.js'// accesses the mock data file I created
+import userData from './data/userData.js'// accesses the FIRST mock data file I created
+import userInterests from './data/userInterests.js'// accesses the SECOND mock data file I created
+import userMessages from './data/userMessages.js'// accesses the THIRD mock data file I created
+
+//imports for routers:
+import userRouter from './routes/userRoutes.js';
+import interestsRouter from './routes/interestsRoutes.js';
+import messagesRouter from './routes/messagesRoutes.js';
+
+
 
 const app = express();
 app.use(express.json());// middleware to parse to json 
 
 const port = 3000;
 
+//applying the routers 
+app.use('/users', userRouter);
+app.use('/interests', interestsRouter);
+app.use('/messages', messagesRouter);
+
+
+// base url 
 app.get('/', (req,res)=>{
 res.send('this is the base url')
 
 })
 
 
-                                                //GET
-
-//gets entire array 
-app.get('/users',(req,res)=>{
-res.json(userData)
-   // console.log(userData)// returns the whole data array. since it is a object. use res.json 
-})
 
 
 // get array of ids only 
@@ -59,14 +69,14 @@ app.get('/users/messages', (req,res)=>{
 
 // put static info over the dynamic stuff. 
 
-//gets object of one user 
-app.get('/users/:id', (req,res)=>{
-// console.log(req.params.id) // pulls one id 
-const userId = Number(req.params.id);// store it in a variable 
-const selectedUser = userData.find(user => user.id === userId)// goes through the array and finds the object with the id 
-//console.log (selectedUser)// returns one user object from the array, selecting it with the id 
-res.json(selectedUser)// consider making the middleware to verify this id exists? 
-})
+// //gets object of one user 
+// app.get('/users/:id', (req,res)=>{
+// // console.log(req.params.id) // pulls one id 
+// const userId = Number(req.params.id);// store it in a variable 
+// const selectedUser = userData.find(user => user.id === userId)// goes through the array and finds the object with the id 
+// //console.log (selectedUser)// returns one user object from the array, selecting it with the id 
+// res.json(selectedUser)// consider making the middleware to verify this id exists? 
+// })
 
 
 //POST
