@@ -2,6 +2,7 @@ import express from 'express';
 import userData from './data/userData.js'// accesses the mock data file I created
 
 const app = express();
+app.use(express.json());// middleware to parse to json 
 
 const port = 3000;
 
@@ -9,6 +10,9 @@ app.get('/', (req,res)=>{
 res.send('this is the base url')
 
 })
+
+
+                                                //GET
 
 //gets entire array 
 app.get('/users',(req,res)=>{
@@ -53,7 +57,8 @@ app.get('/users/messages', (req,res)=>{
     
 })
 
-// static info over the dynamic stuff. 
+// put static info over the dynamic stuff. 
+
 //gets object of one user 
 app.get('/users/:id', (req,res)=>{
 // console.log(req.params.id) // pulls one id 
@@ -64,7 +69,12 @@ res.json(selectedUser)// consider making the middleware to verify this id exists
 })
 
 
-
+//POST
+app.post('/users', (req,res)=>{
+    //console.log(req.body) // req.body is the body of the new data being sent to the array 
+    userData.push(req.body)
+    res.status(201).send('data recieved')
+})
 
 
 app.listen(port,()=>{
