@@ -1,92 +1,24 @@
 //imports:
-import express from 'express';
-import userData from './data/userData.js'// accesses the FIRST mock data file I created
-import userInterests from './data/userInterests.js'// accesses the SECOND mock data file I created
-import userMessages from './data/userMessages.js'// accesses the THIRD mock data file I created
+import express from "express";
+import userData from "./data/userData.js"; // accesses the mock data file I created
 
 //imports for routers:
-import userRouter from './routes/userRoutes.js';
-import interestsRouter from './routes/interestsRoutes.js';
-import messagesRouter from './routes/messagesRoutes.js';
-
+import router from "./routes/userRoutes.js";
 
 
 const app = express();
-app.use(express.json());// middleware to parse to json 
+app.use(express.json()); // middleware to parse to json
 
 const port = 3000;
 
-//applying the routers 
-app.use('/users', userRouter);
-app.use('/interests', interestsRouter);
-app.use('/messages', messagesRouter);
+//applying the routers
+app.use("/users", router);// has to be after app declaration
 
+// base url
+app.get("/", (req, res) => {
+  res.send("this is the base url");// works 
+});
 
-// base url 
-app.get('/', (req,res)=>{
-res.send('this is the base url')
-
-})
-
-
-
-
-// get array of ids only 
-app.get('/users-id-list', (req,res)=>{// had to give it a unique name so it does not interfre with the id number selection 
-const ids = userData.map(userData=> userData.id)// makes a new array of the ids in the original array only 
-//console.log(ids)
-res.json(ids)
-})
-
-// get array of names only 
-app.get('/users/names', (req,res)=>{
-    const names = userData.map(userData=> userData.name)// remember to use. map 
-    //console.log('hit')
-    res.json(names)
-    
-})
-
-//get array of favcolor only 
-app.get('/users/favcolor', (req,res)=>{
-    const favoriteColor = userData.map(userData=> userData.favoriteColor)
-    res.json(favoriteColor)
-    
-})
-// get array of  passion only 
-app.get('/users/passions', (req,res)=>{
-    const passions = userData.map(userData=> userData.passion)
-   // console.log('hit')
-    res.json(passions)
-    
-})
-// get array of messages only 
-app.get('/users/messages', (req,res)=>{
-    const messages = userData.map(userData=> userData.message)
-    console.log('hit')
-    res.json(messages)
-    
-})
-
-// put static info over the dynamic stuff. 
-
-// //gets object of one user 
-// app.get('/users/:id', (req,res)=>{
-// // console.log(req.params.id) // pulls one id 
-// const userId = Number(req.params.id);// store it in a variable 
-// const selectedUser = userData.find(user => user.id === userId)// goes through the array and finds the object with the id 
-// //console.log (selectedUser)// returns one user object from the array, selecting it with the id 
-// res.json(selectedUser)// consider making the middleware to verify this id exists? 
-// })
-
-
-//POST
-app.post('/users', (req,res)=>{
-    //console.log(req.body) // req.body is the body of the new data being sent to the array 
-    userData.push(req.body)
-    res.status(201).send('data recieved')
-})
-
-
-app.listen(port,()=>{
-    console.log( `server listening at port ${port}`)
-})
+app.listen(port, () => {
+  console.log(`server listening at port ${port}`);
+});
