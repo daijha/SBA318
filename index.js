@@ -25,6 +25,12 @@ app.get("/", (req, res) => {
   res.send("this is the base url");// works 
 });
 
+//error handling middleware:
+app.use((err,req,res,next)=> {
+    console.log(`error:`, err.stack)// err.stack includes a stacktrace which is also used in js errors...
+    res.status(500).json({message:"Error occurred"});
+})
 app.listen(port, () => {
   console.log(`server listening at port ${port}`);
 });
+

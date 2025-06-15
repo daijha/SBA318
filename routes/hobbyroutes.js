@@ -3,11 +3,16 @@ import hobbies from "../data/hobbiesData.js";
 
 const hobbyRouter = express.Router();
 
+function addHobbyConfirm(req,res,next){
+    console.log(`New hobby added for user ${req.body.userId}!`)
+    next();
+}
+
 hobbyRouter.get("/", (req, res) => {
   res.json(hobbies);
 });
 
-hobbyRouter.post("/", (req, res) => {
+hobbyRouter.post("/", addHobbyConfirm, (req, res ) => {
   const { userId, hobby } = req.body;
 
   if(!(userId && hobby)){

@@ -3,7 +3,12 @@ import posts from "../data/postsData.js";
 
 const postrouter = express.Router();
 
-postrouter.get("/", (req, res) => {
+function confirmGetRequest (req,res,next){
+    console.log(`Accessed! ${posts.length} entries obtained for this request`)
+    next();
+}
+
+postrouter.get("/", confirmGetRequest, (req, res) => {
   res.json(posts);
 });
 
