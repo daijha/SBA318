@@ -1,0 +1,21 @@
+body{
+    background-color: #c1d3fe ;
+  
+}
+div{
+    background-color: #d7e3fc;
+    border: 1px solid #abc4ff);
+    border-radius: 12px;
+    height:50%;
+    width: 50%;
+    padding:4%;
+    text-align: center;
+}
+button{
+background-color: #abc4ff;
+border-radius: 12px;
+}
+input{
+    background-color: aliceblue;
+    border-radius: 12px;
+}

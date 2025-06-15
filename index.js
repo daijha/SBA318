@@ -18,6 +18,9 @@ app.use(express.json()); // middleware to parse to json
 app.set("view engine", "ejs");// needs to go below app=express or it crashes the app
 app.use(express.urlencoded({ extended: true }));
 
+//getting ejs to access css: 
+app.use(express.static("public"));
+
 const port = 3000;
 
 //applying the routers
