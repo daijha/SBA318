@@ -52,9 +52,9 @@ router.get("/messages", (req, res) => {
   res.json(messages);
 });
 
-router.get("/form", (req, res) => {
-  res.send("this is the form page");
-});
+// router.get("/form", (req, res) => {// interferes with ejs 
+//  res.send("this is the form page");
+// });
 
 router.get("/form/:id", (req, res) => {
   const id = req.params.id;
